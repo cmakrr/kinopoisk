@@ -1,9 +1,9 @@
-package com.example.kinopoisk.models;
+package com.example.kinopoisk.models.entities;
 
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    ADMIN("ROLE_ADMIN"),USER("ROLE_USER");
+    USER("ROLE_USER"),ADMIN("ROLE_ADMIN");
 
     private final String authority;
 

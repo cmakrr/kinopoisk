@@ -1,4 +1,4 @@
-package com.example.kinopoisk.models;
+package com.example.kinopoisk.models.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +20,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
     private String password;
+    private String avatarName;
     @ElementCollection
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated
