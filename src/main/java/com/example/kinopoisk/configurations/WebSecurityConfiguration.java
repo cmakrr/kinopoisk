@@ -22,12 +22,15 @@ public class WebSecurityConfiguration{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login","/register").permitAll()
+                .antMatchers("/login","/register","/login/**").permitAll()
+                .and()
+                .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/profiles/my_profile",true)
+                .defaultSuccessUrl("/profile/my_profile",true)
+                .failureUrl("/login/error")
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
