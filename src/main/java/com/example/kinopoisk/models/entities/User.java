@@ -27,7 +27,7 @@ public class User implements UserDetails {
     @NotBlank
     private String password;
     private String avatarName;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated
     private Set<Role> roles;
