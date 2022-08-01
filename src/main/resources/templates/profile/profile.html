@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<div th:text="${user.getUsername()}"></div>
+<img th:src="${'/images/'+user.getAvatarName()}" alt="no image">
+<a th:if="${isOwner}" th:href="@{/profile/edit/{id}(id=${user.getId()})}">edit</a>
+</body>
+</html>

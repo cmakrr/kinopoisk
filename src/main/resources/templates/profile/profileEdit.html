@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<form method="post" th:action="@{/profile/edit/{id}(id=${user.getId()})}" th:object="${user}" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{avatarName}">
+    <label for="username">name :</label>
+    <input id="username" type="text" th:field="*{username}">
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+    <img th:src="${'/images/'+user.getAvatarName()}"  alt="no image"/>
+    <input text="choose new avatar" type="file" name="avatar" accept="image/png, image/jpeg" />
+    <input type="submit" value="Update">
+</form>
+<a th:href="@{/profile/delete/{id}(id=${user.getId()})}">delete profile</a>
+<a th:href="@{/profile/{id}(id=${user.getId()})}">back to profile</a>
+</body>
+</html>
