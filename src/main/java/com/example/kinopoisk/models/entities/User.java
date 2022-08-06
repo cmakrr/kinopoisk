@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,7 +32,12 @@ public class User implements UserDetails {
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated
     private Set<Role> roles;
-
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<Rating> ratings;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Review> reviews;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Like> likes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
