@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="info">
+    <a th:href="@{/profile/{id}(id=${review.getUser().getId()})}" th:text="${'username: '+review.getUser().getUsername()}"></a>
+    <a th:href="@{/show/{id}(id=${review.getShow().getId()})}" th:text ="${'show name: '+review.getShow().getName()}"></a>
+    <p th:text="${'review: '+review.getText()}"></p>
+    <p th:text="${review.isRecommended()?'recommended':'not recommended'}"></p>
+    <p th:text="${'date: '+review.getDate()}"></p>
+    <p th:text="${'likes: '+review.getLikesCount()}"></p>
+    <form th:unless="${review.isLikedByCurrentUser()}" method="post" th:action="@{/like/{entityId}(entityId=${review.getId()})}">
+        <input type="submit" value="like">
+    </form>
+    <form th:if="${review.isLikedByCurrentUser()}" method="post" th:action="@{/like/delete/{entityId}(entityId=${review.getId()})}">
+        <input type="submit" value="delete like">
+    </form>
+</div>
+</body>
+</html>
