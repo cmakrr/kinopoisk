@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<form method="POST" th:action="@{/review/create/{showId}(showId=${showId})}" th:object="${review}">
+    <div th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+    <label for="text">text: </label>
+    <input id="text" type="text" th:field="*{text}">
+    <label for="isRecommended">is recommended: </label>
+    <input id="isRecommended" type="checkbox" th:field="*{isShowRecommended}">
+    <input type="submit"  value="create">
+</form>
+<a th:href="@{/profile/my_profile}">back to profile</a>
+</body>
+</html>

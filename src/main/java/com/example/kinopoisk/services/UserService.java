@@ -59,13 +59,20 @@ public class UserService{
         }
     }
 
+    public Long receiveCurrentUserId(){
+        return receiveCurrentUser().getId();
+    }
+
+    public User receiveCurrentUser(){
+        return (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
     public boolean isCurrentUser(Long id){
         return receiveCurrentUserId().equals(id);
     }
 
-    public Long receiveCurrentUserId(){
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return user.getId();
+    public Optional<User> findUserById(Long id){
+        return userRepository.findById(id);
     }
 
     public Optional<UserDTO> findDTOById(Long id){

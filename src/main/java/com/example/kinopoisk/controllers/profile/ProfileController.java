@@ -1,6 +1,8 @@
 package com.example.kinopoisk.controllers.profile;
 
 import com.example.kinopoisk.models.dtos.UserDTO;
+import com.example.kinopoisk.models.entities.User;
+import com.example.kinopoisk.services.ReviewService;
 import com.example.kinopoisk.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProfileController {
     private final UserService userService;
+    private final ReviewService reviewService;
 
     @GetMapping("/my_profile")
     public String myProfile(Model model){
@@ -64,7 +67,21 @@ public class ProfileController {
 
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Long id){
-        userService.deleteUser(id);
-        return "redirect:/login";
+        if(userService.isCurrentUser(id)) {
+            userService.deleteUser(id);
+            return "redirect:/login";
+        } else{
+            return String.format("redirect:/profile/%d",id);
+        }
+    }
+
+    @GetMapping("/{id}/reviews_list")
+    public String reviewsList(@PathVariable Long id,Model model){
+        Optional<User> user= userService.findUserById(id);
+        return user.map(value->{
+            model.addAttribute("reviews",reviewService.convertReviewsToDTOs(value.getReviews()));
+            model.addAttribute("isOwner",userService.isCurrentUser(id));
+            return "profile/reviews_list";
+        }).orElse("error/404");
     }
 }
