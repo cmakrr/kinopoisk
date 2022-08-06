@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 
 import java.util.Optional;
 
-public class UserDTOConverter extends DTOConverterWithMapper<User, UserDTO> {
+public class UserDTOConverter extends DTOConverterWithMapper<User, UserDTO> implements  EntityToDTOConverter<User,UserDTO> {
     private final UserRepository userRepository;
 
     public UserDTOConverter(ModelMapper modelMapper, UserRepository userRepository) {
@@ -17,15 +17,12 @@ public class UserDTOConverter extends DTOConverterWithMapper<User, UserDTO> {
 
     @Override
     public User convertFromDTO(UserDTO userDTO) {
+        User user = modelMapper.map(userDTO, User.class);
         Optional<User> oldUser = userRepository.findById(userDTO.getId());
-        User user;
-        if(oldUser.isPresent()){
-            user = oldUser.get();
-            user.setUsername(userDTO.getUsername());
-            user.setAvatarName(userDTO.getAvatarName());
-        } else{
-            user = modelMapper.map(userDTO,User.class);
-        }
+        oldUser.ifPresent(value->{
+            user.setPassword(value.getPassword());
+            user.setRoles(value.getRoles());
+        });
         return user;
     }
 
