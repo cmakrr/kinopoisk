@@ -15,7 +15,9 @@
     <input text="choose new avatar" type="file" name="avatar" accept="image/png, image/jpeg" />
     <input type="submit" value="Update">
 </form>
-<a th:href="@{/profile/delete/{id}(id=${user.getId()})}">delete profile</a>
+<form method="POST" th:action="@{/profile/delete/{id}(id=${user.getId()})}">
+    <input type="submit" value="delete profile">
+</form>
 <a th:href="@{/profile/{id}(id=${user.getId()})}">back to profile</a>
 </body>
 </html>
