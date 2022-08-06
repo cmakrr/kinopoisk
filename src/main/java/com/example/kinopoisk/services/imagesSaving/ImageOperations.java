@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +23,14 @@ public class ImageOperations{
     private final PathCreator pathCreator;
     @Value("${imagesResourcesPath}")
     private String resourcesDirectory;
+
+    public List<String> saveImages(MultipartFile[] images){
+        List<String> imagesNames = new ArrayList<>();
+        for(MultipartFile image : images){
+            saveImage(image).ifPresent(imagesNames::add);
+        }
+        return imagesNames;
+    }
 
     public Optional<String> saveImage(MultipartFile multipartFile){
         String name = generateFileName(multipartFile);
