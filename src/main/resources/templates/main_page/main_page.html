@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<a th:href="@{/profile/my_profile}">back to profile</a>
+<p th:if="${searchMessage != null}" th:text="${searchMessage}"></p>
+<form method="POST" th:action="@{/show/find}">
+    <label for="name">insert show name (sopranos for example): </label>
+    <input id="name" type="text" th:value="${showName}" name="showName">
+    <input type="submit" value="find">
+</form>
+</body>
+</html>
