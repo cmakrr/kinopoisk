@@ -1,15 +1,15 @@
 package com.example.kinopoisk.logic.dtoConverters;
 
 
-import com.example.kinopoisk.models.dtos.ReviewDTO;
-import com.example.kinopoisk.models.entities.Review;
-import com.example.kinopoisk.services.LikeService;
+import com.example.kinopoisk.model.dtos.ReviewDTO;
+import com.example.kinopoisk.model.entities.review.Review;
+import com.example.kinopoisk.service.like.implementations.CustomLikeService;
 import org.modelmapper.ModelMapper;
 
 public class ReviewToDTOConverter extends EntityToDTOConverterWithMapper<Review, ReviewDTO> {
-    private final LikeService likeService;
+    private final CustomLikeService likeService;
 
-    public ReviewToDTOConverter(ModelMapper modelMapper,LikeService likeService) {
+    public ReviewToDTOConverter(ModelMapper modelMapper, CustomLikeService likeService) {
         super(modelMapper);
         this.likeService = likeService;
     }

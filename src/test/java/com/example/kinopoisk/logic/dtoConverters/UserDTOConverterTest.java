@@ -1,9 +1,9 @@
 package com.example.kinopoisk.logic.dtoConverters;
 
-import com.example.kinopoisk.models.dtos.UserDTO;
-import com.example.kinopoisk.models.entities.Role;
-import com.example.kinopoisk.models.entities.User;
-import com.example.kinopoisk.repositories.UserRepository;
+import com.example.kinopoisk.model.dtos.UserDTO;
+import com.example.kinopoisk.model.entities.user.Role;
+import com.example.kinopoisk.model.entities.user.User;
+import com.example.kinopoisk.repository.user.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

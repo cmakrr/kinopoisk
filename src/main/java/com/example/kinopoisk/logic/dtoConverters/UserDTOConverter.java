@@ -1,8 +1,8 @@
 package com.example.kinopoisk.logic.dtoConverters;
 
-import com.example.kinopoisk.models.dtos.UserDTO;
-import com.example.kinopoisk.models.entities.User;
-import com.example.kinopoisk.repositories.UserRepository;
+import com.example.kinopoisk.model.dtos.UserDTO;
+import com.example.kinopoisk.model.entities.user.User;
+import com.example.kinopoisk.repository.user.UserRepository;
 import org.modelmapper.ModelMapper;
 
 import java.util.Optional;

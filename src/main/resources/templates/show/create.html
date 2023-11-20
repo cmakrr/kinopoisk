@@ -12,7 +12,7 @@
     <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
     <label for="type">type: </label>
     <select id="type" name="type">
-        <option th:each="type : ${T(com.example.kinopoisk.models.entities.ShowType).values()}"
+        <option th:each="type : ${T(com.example.kinopoisk.model.entities.show.ShowType).values()}"
                 th:value="${type}" th:text="${type}"></option>
     </select>
     <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
