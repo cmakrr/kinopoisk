@@ -10,8 +10,6 @@ public interface UserService {
 
     void saveNewUser(User user);
 
-    void setAvatar(UserDTO user, MultipartFile avatar);
-
     Long receiveCurrentUserId();
 
     User receiveCurrentUser();

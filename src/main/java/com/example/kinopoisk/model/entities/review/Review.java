@@ -1,6 +1,6 @@
 package com.example.kinopoisk.model.entities.review;
 
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import com.example.kinopoisk.model.entities.user.User;
 import com.example.kinopoisk.model.entities.likeableentity.EntityThatCanBeLiked;
 import lombok.Getter;
@@ -21,8 +21,8 @@ public class Review extends EntityThatCanBeLiked {
     @CreationTimestamp
     private Date date;
     @ManyToOne
-    @JoinColumn(name = "show_id")
-    private Show show;
+    @JoinColumn(name = "product_id")
+    private Product product;
     @ManyToOne
     @JoinColumn
     private User user;

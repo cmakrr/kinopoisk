@@ -1,6 +1,6 @@
 package com.example.kinopoisk.model.entities.rating;
 
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import com.example.kinopoisk.model.entities.user.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,8 +21,8 @@ public class Rating {
     @Max(10)
     private int rating;
     @ManyToOne
-    @JoinColumn(name = "show_id")
-    private Show show;
+    @JoinColumn(name = "product_id")
+    private Product product;
     @ManyToOne
     @JoinColumn
     private User user;

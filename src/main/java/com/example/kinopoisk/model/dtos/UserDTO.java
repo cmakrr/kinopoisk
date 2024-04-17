@@ -11,5 +11,4 @@ public class UserDTO{
     private Long id;
     @NotBlank
     private String username;
-    private String avatarName;
 }
