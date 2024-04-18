@@ -5,6 +5,7 @@ import com.example.kinopoisk.model.dtos.UserDTO;
 import com.example.kinopoisk.model.entities.user.Role;
 import com.example.kinopoisk.model.entities.user.User;
 import com.example.kinopoisk.repository.user.UserRepository;
+import com.example.kinopoisk.service.imagesSaving.implementations.CustomImageOperationsService;
 import com.example.kinopoisk.service.user.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -25,11 +27,15 @@ public class CustomUserService implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserDTOConverter userDTOConverter;
+    private final CustomImageOperationsService customImageOperationsService;
+    @Value("${defaultAvatarName}")
+    private String defaultAvatarName;
     @Value("${defaultUserRoleOrd}")
     private int defaultRoleOrd;
 
     public void saveNewUser(User user){
         addDefaultRoleToUser(user);
+        setDefaultAvatarToUser(user);
         encodePassword(user);
         userRepository.save(user);
     }
@@ -40,11 +46,21 @@ public class CustomUserService implements UserService {
         user.setRoles(rolesSet);
     }
 
+    private void setDefaultAvatarToUser(User user){
+        user.setAvatarName(defaultAvatarName);
+    }
+
     private void encodePassword(User user){
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
     }
 
+    public void setAvatar(UserDTO user, MultipartFile avatar){
+        if(!avatar.isEmpty()){
+            Optional<String> avatarName = customImageOperationsService.saveImage(avatar);
+            avatarName.ifPresent(user::setAvatarName);
+        }
+    }
 
     public Long receiveCurrentUserId(){
         return receiveCurrentUser().getId();

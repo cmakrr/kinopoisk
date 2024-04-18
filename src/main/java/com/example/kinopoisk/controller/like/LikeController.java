@@ -7,11 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Controller
 @RequestMapping("/like")
 @RequiredArgsConstructor
 public class LikeController {
@@ -19,12 +18,14 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/{entityId}")
-    public void like(@PathVariable Long entityId){
+    public String like(HttpServletRequest servletRequest, @PathVariable Long entityId){
         likeService.addLike(entityId);
+        return AuxiliaryMethods.createRedirectionToPreviousPage(servletRequest);
     }
 
     @PostMapping("/delete/{entityId}")
-    public void deleteLike(HttpServletRequest servletRequest,@PathVariable Long entityId){
+    public String deleteLike(HttpServletRequest servletRequest,@PathVariable Long entityId){
         likeService.deleteLikeFromCurrentUser(entityId);
+        return AuxiliaryMethods.createRedirectionToPreviousPage(servletRequest);
     }
 }

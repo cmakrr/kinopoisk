@@ -3,9 +3,9 @@ package com.example.kinopoisk.service.review.implementations;
 import com.example.kinopoisk.logic.dtoConverters.ReviewToDTOConverter;
 import com.example.kinopoisk.model.dtos.ReviewDTO;
 import com.example.kinopoisk.model.entities.review.Review;
-import com.example.kinopoisk.model.entities.show.Product;
-import com.example.kinopoisk.repository.product.ProductBaseRepository;
+import com.example.kinopoisk.model.entities.show.Show;
 import com.example.kinopoisk.repository.review.ReviewRepository;
+import com.example.kinopoisk.repository.show.ShowRepository;
 import com.example.kinopoisk.service.review.interfaces.ReviewService;
 import com.example.kinopoisk.service.user.implementations.CustomUserService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class CustomReviewService implements ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final ProductBaseRepository productRepository;
+    private final ShowRepository showRepository;
     private final ReviewToDTOConverter reviewToDTOConverter;
     private final CustomUserService userService;
 
@@ -30,8 +30,8 @@ public class CustomReviewService implements ReviewService {
     }
 
     private void setShowToReview(Review review, Long showId){
-        Optional<Product> show = productRepository.findById(showId);
-        show.ifPresent(review::setProduct);
+        Optional<Show> show = showRepository.findById(showId);
+        show.ifPresent(review::setShow);
     }
 
     private void setCurrentUserToReview(Review review) {

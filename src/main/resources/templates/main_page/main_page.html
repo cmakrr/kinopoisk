@@ -7,8 +7,8 @@
 <body>
 <a th:href="@{/profile/my_profile}">back to profile</a>
 <p th:if="${searchMessage != null}" th:text="${searchMessage}"></p>
-<form method="POST" th:action="@{/product/find}">
-    <label for="name">insert product name (sopranos for example): </label>
+<form method="POST" th:action="@{/show/find}">
+    <label for="name">insert show name (sopranos for example): </label>
     <input id="name" type="text" th:value="${showName}" name="showName">
     <input type="submit" value="find">
 </form>

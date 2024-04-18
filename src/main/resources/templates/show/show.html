@@ -5,15 +5,15 @@
     <title>Show</title>
 </head>
 <body>
-<p th:text="${'name: '+product.getName()}"></p>
-<p th:text="${'type: '+product.getType()}"></p>
-<p th:text="${'description: '+product.getDescription()}"></p>
-<p th:text="${'rating: '+product.getAverageRating()}"></p>
+<p th:text="${'name: '+show.getName()}"></p>
+<p th:text="${'type: '+show.getType()}"></p>
+<p th:text="${'description: '+show.getDescription()}"></p>
+<p th:text="${'rating: '+show.getAverageRating()}"></p>
 <p>pictures:</p>
-<div th:each="imageName : ${product.getImagesNames()}">
+<div th:each="imageName : ${show.getImagesNames()}">
     <img th:src="${'/images/'+imageName}"  alt="no image"/>
 </div>
-<form method="POST" th:action="@{/product/{showId}/set_rating(showId=${product.getId()})}" th:object="${rating}">
+<form method="POST" th:action="@{/show/{showId}/set_rating(showId=${show.getId()})}" th:object="${rating}">
     <label for="rating">my rating:</label>
     <input id="rating" min="0" max="10" type="number" th:field="*{rating}">
     <input type="submit" value="submit">
@@ -23,7 +23,7 @@
 <div th:each="review : ${reviews}">
     <div th:insert="~{review/reviewInfo :: info}"></div>
 </div>
-<form method="POST" th:action="@{/review/create/{showId}(showId=${product.getId()})}" th:object="${review}">
+<form method="POST" th:action="@{/review/create/{showId}(showId=${show.getId()})}" th:object="${review}">
     <div th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <label for="text">text: </label>
     <input id="text" type="text" th:field="*{text}">

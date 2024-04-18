@@ -32,6 +32,7 @@ public class User implements UserDetails {
     @Size(min = 2, max=1000)
     @NotBlank
     private String password;
+    private String avatarName;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated

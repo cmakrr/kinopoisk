@@ -17,11 +17,32 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfiguration{
+
+    private static final String LOGIN_URL = "/login";
     private final UserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(LOGIN_URL,"/register","/login/**").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/show/create").hasRole("ADMIN")
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage(LOGIN_URL)
+                .defaultSuccessUrl("/profile/my_profile",true)
+                .failureUrl("/login/error")
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl(LOGIN_URL)
+                .deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe().key("rememberMeKey")
                 .and().authenticationProvider(getAuthenticationProvider());
         return http.build();
     }

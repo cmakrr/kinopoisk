@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create product</title>
+    <title>Create show</title>
 </head>
 <body>
-<form method="POST" th:action="@{/product/create}" th:object="${product}" enctype="multipart/form-data">
+<form method="POST" th:action="@{/show/create}" th:object="${show}" enctype="multipart/form-data">
     <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     <label for="name">name: </label>
     <input id="name" type="text" th:field="*{name}">
     <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
     <label for="type">type: </label>
     <select id="type" name="type">
-        <option th:each="type : ${T(com.example.kinopoisk.model.entities.product.ShowType).values()}"
+        <option th:each="type : ${T(com.example.kinopoisk.model.entities.show.ShowType).values()}"
                 th:value="${type}" th:text="${type}"></option>
     </select>
     <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
