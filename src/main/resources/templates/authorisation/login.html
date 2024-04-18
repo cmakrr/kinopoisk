@@ -3,18 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link th:href="@{/styles/auth.css}" rel="stylesheet" />
 </head>
 <body>
-<div th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
-<form method="post" th:action="@{/login}" >
-    <label for="username">username :</label>
-    <input id="username" type="text" name="username">
-    <label for="password">password :</label>
-    <input id="password" type="text" name="password">
-    <label for="remember-me">Remember me</label>
-    <input id="remember-me" type="checkbox" name="remember-me" />
-    <input type="submit" value="login">
-</form>
-<a th:href="@{/register}">registration</a>
+<section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+
+    <div class="auth">
+
+        <div class="content">
+
+            <h2>Login</h2>
+            <div th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+            <form method="post" th:action="@{/login}" >
+            <div class="form">
+
+                <div class="inputBox">
+
+                    <input id="username" type="text" name="username" required> <i>Username</i>
+
+                </div>
+
+                <div class="inputBox">
+
+                    <input id="password" type="text" name="password" required> <i>Password</i>
+
+                </div>
+
+
+
+                <div class="links"> <a th:href="@{/register}">Signup</a>
+
+                </div>
+
+                <div class="inputBox">
+
+                    <input type="submit" value="Login">
+
+                </div>
+            </div>
+            </form>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
 </body>
 </html>

@@ -4,7 +4,7 @@ import com.example.kinopoisk.logic.auxiliaryClasses.AuxiliaryMethods;
 import com.example.kinopoisk.logic.dtoConverters.ReviewToDTOConverter;
 import com.example.kinopoisk.model.dtos.ReviewDTO;
 import com.example.kinopoisk.model.entities.rating.Rating;
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import com.example.kinopoisk.repository.show.ShowRepository;
 import com.example.kinopoisk.service.show.interfaces.ShowService;
 import com.example.kinopoisk.service.user.implementations.CustomUserService;
@@ -25,40 +25,40 @@ public class CustomShowService implements ShowService {
     private final CustomImageOperationsService customImageOperationsService;
 
     @Override
-    public void save(Show show) {
-        showRepository.save(show);
+    public void save(Product product) {
+        showRepository.save(product);
     }
 
     @Override
-    public void setImages(Show show,MultipartFile[] images){
+    public void setImages(Product product, MultipartFile[] images){
         if(!AuxiliaryMethods.areMultipartFilesEmpty(images)){
             List<String> imagesNames = customImageOperationsService.saveImages(images);
-            show.setImagesNames(imagesNames);
+            product.setImagesNames(imagesNames);
         }
     }
 
     @Override
-    public Optional<Show> findById(Long id){
+    public Optional<Product> findById(Long id){
          return showRepository.findById(id);
     }
 
     @Override
-    public List<ReviewDTO> receiveShowReviewsDTO(Show show){
-        return show.getReviews().stream()
+    public List<ReviewDTO> receiveShowReviewsDTO(Product product){
+        return product.getReviews().stream()
                 .map(reviewToDTOConverter::convertToDTO)
                 .toList();
     }
 
     @Override
-    public Optional<Rating> receiveRatingFromCurrentUser(Show show) {
+    public Optional<Rating> receiveRatingFromCurrentUser(Product product) {
         Long userId = userService.receiveCurrentUserId();
-        return show.getRatings().stream()
+        return product.getRatings().stream()
                 .filter(rating -> rating.getUser().getId().equals(userId))
                 .findFirst();
     }
 
     @Override
-    public Optional<Show> findByName(String name){
+    public Optional<Product> findByName(String name){
         return showRepository.findByName(name);
     }
 }

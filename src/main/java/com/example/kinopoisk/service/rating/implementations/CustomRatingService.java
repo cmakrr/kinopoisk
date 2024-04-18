@@ -1,7 +1,7 @@
 package com.example.kinopoisk.service.rating.implementations;
 
 import com.example.kinopoisk.model.entities.rating.Rating;
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import com.example.kinopoisk.repository.rating.RatingRepository;
 import com.example.kinopoisk.repository.show.ShowRepository;
 import com.example.kinopoisk.service.rating.interfaces.RatingService;
@@ -29,13 +29,13 @@ public class CustomRatingService implements RatingService {
 
     private void setIdIfRatingAlreadyExists(Rating rating,Long showId){
         Long userId = userService.receiveCurrentUserId();
-        Optional<Rating> oldRating = ratingRepository.findByUserIdAndShowId(userId,showId);
+        Optional<Rating> oldRating = ratingRepository.findByUserIdAndProductId(userId,showId);
         oldRating.ifPresent(value-> rating.setId(value.getId()));
     }
 
     private void addShowToRating(Rating rating,Long showId){
-        Optional<Show> show = showRepository.findById(showId);
-        show.ifPresent(rating::setShow);
+        Optional<Product> show = showRepository.findById(showId);
+        show.ifPresent(rating::setProduct);
     }
 
     private void addCurrentUserAsRatingAuthor(Rating rating){

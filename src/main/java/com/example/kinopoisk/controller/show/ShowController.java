@@ -3,7 +3,7 @@ package com.example.kinopoisk.controller.show;
 import com.example.kinopoisk.logic.auxiliaryClasses.AuxiliaryMethods;
 import com.example.kinopoisk.model.entities.rating.Rating;
 import com.example.kinopoisk.model.entities.review.Review;
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import com.example.kinopoisk.service.show.interfaces.ShowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -30,24 +30,24 @@ public class ShowController {
 
     @GetMapping("/create")
     public String createShow(Model model){
-        Show show = new Show();
-        model.addAttribute("show",show);
+        Product product = new Product();
+        model.addAttribute("show", product);
         return "show/create";
     }
 
     @PostMapping("/create")
-    public String createShowPost(Model model, @Valid Show show, BindingResult result,@ModelAttribute("pictures") MultipartFile[] pictures){
+    public String createShowPost(Model model, @Valid Product product, BindingResult result, @ModelAttribute("pictures") MultipartFile[] pictures){
         if(!result.hasErrors()){
-            showService.setImages(show,pictures);
-            showService.save(show);
+            showService.setImages(product,pictures);
+            showService.save(product);
         }
-        model.addAttribute("show",show);
+        model.addAttribute("show", product);
         return "show/create";
     }
 
     @GetMapping("/{id}")
     public String show(Model model, @PathVariable Long id){
-        Optional<Show> show = showService.findById(id);
+        Optional<Product> show = showService.findById(id);
         return show.map(value->{
             Optional<Rating> rating = showService.receiveRatingFromCurrentUser(value);
             model.addAttribute("rating", rating.orElse(new Rating()));
@@ -60,7 +60,7 @@ public class ShowController {
 
     @PostMapping("/find")
     public String findByName(HttpServletRequest request, @RequestParam String showName, Model model){
-        Optional<Show> show = showService.findByName(showName);
+        Optional<Product> show = showService.findByName(showName);
         if(show.isPresent()){
             return String.format("redirect:/show/%d",show.get().getId());
         } else{

@@ -2,7 +2,7 @@ package com.example.kinopoisk.controller.show;
 
 import com.example.kinopoisk.model.dtos.ReviewDTO;
 import com.example.kinopoisk.model.entities.rating.Rating;
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import com.example.kinopoisk.model.entities.user.User;
 import com.example.kinopoisk.service.show.implementations.CustomShowService;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 @ContextConfiguration(classes = ShowController.class)
-class ShowControllerTest {
+class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
@@ -40,17 +40,17 @@ class ShowControllerTest {
 
     @Test
     void createShowPost() throws Exception{
-        Show show = new Show();
+        Product product = new Product();
 
         mockMvc.perform(post("/show/create")
                 .with(csrf())
                 .with(user(new User()))
-                .flashAttr("show",show))
+                .flashAttr("show", product))
                 .andExpect(status().isOk())
                 .andExpect(view().name("show/create"));
 
 
-        verify(showService).save(show);
+        verify(showService).save(product);
     }
 
 
@@ -58,18 +58,18 @@ class ShowControllerTest {
     void show_ShowExists() throws Exception{
         Long id = 1L;
         String url = String.format("/show/%d",id);
-        Show show = new Show();
+        Product product = new Product();
         Rating rating = new Rating();
         List<ReviewDTO> reviewDTOList = new ArrayList<>();
 
-        when(showService.findById(id)).thenReturn(Optional.of(show));
-        when(showService.receiveRatingFromCurrentUser(show)).thenReturn(Optional.of(rating));
-        when(showService.receiveShowReviewsDTO(show)).thenReturn(reviewDTOList);
+        when(showService.findById(id)).thenReturn(Optional.of(product));
+        when(showService.receiveRatingFromCurrentUser(product)).thenReturn(Optional.of(rating));
+        when(showService.receiveShowReviewsDTO(product)).thenReturn(reviewDTOList);
 
         mockMvc.perform(get(url)
                 .with(user(new User())))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("show",show))
+                .andExpect(model().attribute("show", product))
                 .andExpect(view().name("show/show"));
     }
 
@@ -88,16 +88,16 @@ class ShowControllerTest {
 
     @Test
     void findByName() throws Exception{
-        Show show = new Show();
-        show.setId(1L);
-        show.setName("name");
-        String expectedRedirectUrl = String.format("/show/%d",show.getId());
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("name");
+        String expectedRedirectUrl = String.format("/show/%d", product.getId());
 
-        when(showService.findByName(show.getName())).thenReturn(Optional.of(show));
+        when(showService.findByName(product.getName())).thenReturn(Optional.of(product));
 
         mockMvc.perform(post("/show/find")
                 .with(csrf())
-                .with(user(new User())).param("showName",show.getName()))
+                .with(user(new User())).param("showName", product.getName()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(expectedRedirectUrl));
     }

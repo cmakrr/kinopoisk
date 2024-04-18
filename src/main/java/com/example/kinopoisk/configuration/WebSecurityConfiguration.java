@@ -30,6 +30,7 @@ public class WebSecurityConfiguration{
                 .antMatchers("/show/create").hasRole("ADMIN")
                 .and()
                 .authorizeRequests()
+                .antMatchers("/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

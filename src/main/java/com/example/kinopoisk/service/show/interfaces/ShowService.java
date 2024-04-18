@@ -2,7 +2,7 @@ package com.example.kinopoisk.service.show.interfaces;
 
 import com.example.kinopoisk.model.dtos.ReviewDTO;
 import com.example.kinopoisk.model.entities.rating.Rating;
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -10,15 +10,15 @@ import java.util.Optional;
 
 public interface ShowService {
 
-    void save(Show show);
+    void save(Product product);
 
-    void setImages(Show show, MultipartFile[] images);
+    void setImages(Product product, MultipartFile[] images);
 
-    Optional<Show> findById(Long id);
+    Optional<Product> findById(Long id);
 
-    List<ReviewDTO> receiveShowReviewsDTO(Show show);
+    List<ReviewDTO> receiveShowReviewsDTO(Product product);
 
-    Optional<Rating> receiveRatingFromCurrentUser(Show show);
+    Optional<Rating> receiveRatingFromCurrentUser(Product product);
 
-    Optional<Show> findByName(String name);
+    Optional<Product> findByName(String name);
 }

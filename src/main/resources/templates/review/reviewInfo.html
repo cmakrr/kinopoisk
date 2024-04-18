@@ -7,7 +7,7 @@
 <body>
 <div th:fragment="info">
     <a th:href="@{/profile/{id}(id=${review.getUser().getId()})}" th:text="${'username: '+review.getUser().getUsername()}"></a>
-    <a th:href="@{/show/{id}(id=${review.getShow().getId()})}" th:text ="${'show name: '+review.getShow().getName()}"></a>
+    <a th:href="@{/product/{id}(id=${review.getShow().getId()})}" th:text ="${'product name: '+review.getShow().getName()}"></a>
     <p th:text="${'review: '+review.getText()}"></p>
     <p th:text="${review.isRecommended()?'recommended':'not recommended'}"></p>
     <p th:text="${'date: '+review.getDate()}"></p>

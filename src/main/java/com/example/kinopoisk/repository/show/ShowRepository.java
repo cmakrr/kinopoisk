@@ -1,13 +1,13 @@
 package com.example.kinopoisk.repository.show;
 
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface ShowRepository extends JpaRepository<Show,Long> {
+public interface ShowRepository extends JpaRepository<Product,Long> {
     boolean existsShowById(Long id);
-    Optional<Show> findByName(String name);
+    Optional<Product> findByName(String name);
 }

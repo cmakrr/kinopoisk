@@ -3,7 +3,7 @@ package com.example.kinopoisk.service.review.implementations;
 import com.example.kinopoisk.logic.dtoConverters.ReviewToDTOConverter;
 import com.example.kinopoisk.model.dtos.ReviewDTO;
 import com.example.kinopoisk.model.entities.review.Review;
-import com.example.kinopoisk.model.entities.show.Show;
+import com.example.kinopoisk.model.entities.show.Product;
 import com.example.kinopoisk.repository.review.ReviewRepository;
 import com.example.kinopoisk.repository.show.ShowRepository;
 import com.example.kinopoisk.service.review.interfaces.ReviewService;
@@ -30,8 +30,8 @@ public class CustomReviewService implements ReviewService {
     }
 
     private void setShowToReview(Review review, Long showId){
-        Optional<Show> show = showRepository.findById(showId);
-        show.ifPresent(review::setShow);
+        Optional<Product> show = showRepository.findById(showId);
+        show.ifPresent(review::setProduct);
     }
 
     private void setCurrentUserToReview(Review review) {

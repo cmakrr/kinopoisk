@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "shows")
 @Getter
 @Setter
-public class Show {
+public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
@@ -26,9 +26,9 @@ public class Show {
     @ElementCollection
     @CollectionTable(name = "images_names", joinColumns = @JoinColumn(name = "show_id"))
     private List<String> imagesNames;
-    @OneToMany(mappedBy = "show",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
     private List<Rating> ratings;
-    @OneToMany(mappedBy = "show",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
     @OrderBy("date")
     private List<Review> reviews;
 }
