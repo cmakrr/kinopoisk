@@ -8,6 +8,5 @@
 <div th:each="review : ${reviews}">
     <div th:insert="~{review/reviewInfo :: info}"></div>
 </div>
-<a th:href="@{/profile/my_profile}">back to profile</a>
 </body>
 </html>

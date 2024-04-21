@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Card</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:fragment="product_card">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" th:src="${'/images/'+product.getImagesNames().get(0)}"  alt="no image">
+        <div class="card-body">
+            <h5 th:text="${product.getName()}" class="card-title"></h5>
+            <p th:text="${product.getDescription()}" class="card-text"></p>
+            <a th:href="@{/product/{productId}(productId=${product.getId()})}" class="btn btn-primary">See full</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
