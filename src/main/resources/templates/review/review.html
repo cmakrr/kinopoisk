@@ -6,8 +6,5 @@
 </head>
 <body>
 <div th:insert="~{review/reviewInfo :: info}"></div>
-<a th:if="${isOwner}" th:href="@{/review/edit/{id}(id=${review.getId()})}">edit</a>
-<a th:if="${isOwner}" th:href="@{/review/delete/{id}(id=${review.getId()})}">delete</a>
-<a th:href="@{/profile/my_profile}">back to profile</a>
 </body>
 </html>

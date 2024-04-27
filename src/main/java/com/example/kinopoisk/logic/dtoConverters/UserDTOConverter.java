@@ -1,6 +1,7 @@
 package com.example.kinopoisk.logic.dtoConverters;
 
 import com.example.kinopoisk.model.dtos.UserDTO;
+import com.example.kinopoisk.model.entities.user.Role;
 import com.example.kinopoisk.model.entities.user.User;
 import com.example.kinopoisk.repository.user.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -28,6 +29,10 @@ public class UserDTOConverter extends DTOConverterWithMapper<User, UserDTO> impl
 
     @Override
     public UserDTO convertToDTO(User user) {
-        return modelMapper.map(user,UserDTO.class);
+        UserDTO dto = modelMapper.map(user,UserDTO.class);
+        dto.setLikesCount(user.getLikes().size());
+        dto.setReviewsCount(user.getReviews().size());
+        dto.setRole(user.getRoles().stream().findAny().orElse(Role.USER).name());
+        return dto;
     }
 }

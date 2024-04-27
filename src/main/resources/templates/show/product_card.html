@@ -12,7 +12,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div th:fragment="product_card">
+<div th:fragment="card">
     <div class="card" style="width: 18rem;">
         <img class="card-img-top" th:src="${'/images/'+product.getImagesNames().get(0)}"  alt="no image">
         <div class="card-body">

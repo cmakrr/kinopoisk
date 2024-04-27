@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -31,7 +32,7 @@ public class ShowController {
     @GetMapping("/create")
     public String createShow(Model model){
         Product product = new Product();
-        model.addAttribute("show", product);
+        model.addAttribute("product", product);
         return "show/create";
     }
 
@@ -41,7 +42,7 @@ public class ShowController {
             showService.setImages(product,pictures);
             showService.save(product);
         }
-        model.addAttribute("show", product);
+        model.addAttribute("product", product);
         return "show/create";
     }
 
@@ -53,7 +54,7 @@ public class ShowController {
             model.addAttribute("rating", rating.orElse(new Rating()));
             model.addAttribute("review",new Review());
             model.addAttribute("reviews",showService.receiveShowReviewsDTO(value));
-            model.addAttribute("show",value);
+            model.addAttribute("product",value);
             return "show/show";
         }).orElse("error/404");
     }
@@ -67,5 +68,24 @@ public class ShowController {
             model.addAttribute("searchMessage","not found");
             return AuxiliaryMethods.createRedirectionToPreviousPage(request);
         }
+    }
+
+    @GetMapping("/all")
+    public String findAll(Model model){
+        List<Product> products = showService.findAll();
+        model.addAttribute("products", products);
+        return "show/product_list";
+    }
+
+    @GetMapping("/search/{name}")
+    public String findAll(Model model, @PathVariable String name){
+        List<Product> products = showService.findByNameContaining(name);
+        model.addAttribute("products", products);
+        return "show/product_list";
+    }
+
+    @PostMapping("/search")
+    public String findAllPost(@RequestParam String name){
+        return String.format("redirect:/show/search/%s",name);
     }
 }

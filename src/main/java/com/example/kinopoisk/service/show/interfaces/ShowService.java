@@ -21,4 +21,8 @@ public interface ShowService {
     Optional<Rating> receiveRatingFromCurrentUser(Product product);
 
     Optional<Product> findByName(String name);
+
+    List<Product> findAll();
+
+    List<Product> findByNameContaining(String name);
 }

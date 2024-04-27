@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Create product</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<form method="POST" th:action="@{/product/create}" th:object="${product}" enctype="multipart/form-data">
-    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-    <label for="name">name: </label>
-    <input id="name" type="text" th:field="*{name}">
-    <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
-    <label for="type">type: </label>
-    <select id="type" name="type">
-        <option th:each="type : ${T(com.example.kinopoisk.model.entities.product.ShowType).values()}"
-                th:value="${type}" th:text="${type}"></option>
-    </select>
-    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
-    <label for="description">description: </label>
-    <input id="description" type="text" th:field="*{description}">
-    <input type="file" name="pictures" accept="image/png, image/jpeg" multiple/>
-    <input type="submit"  value="create">
+<div th:insert="~{navbar/navbar :: navbar}"></div>
+<form method="POST" th:action="@{/show/create}" th:object="${product}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input  class="form-control" id="name" th:field="*{name}" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="type">Type</label>
+        <select id="type" name="type">
+            <option th:each="type : ${T(com.example.kinopoisk.model.entities.show.ShowType).values()}"
+                    th:value="${type}" th:text="${type}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input  class="form-control" id="description" th:field="*{description}" placeholder="Enter description">
+    </div>
+    <div class="form-group">
+        <label for="pictures">Example file input</label>
+        <input type="file"  class="form-control-file" id="pictures" name="pictures" accept="image/png, image/jpeg" multiple>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<a th:href="@{/profile/my_profile}">back to profile</a>
 </body>
 </html>

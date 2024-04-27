@@ -2,34 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Show</title>
+    <title>Product</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link th:href="@{/styles/product.css}" rel="stylesheet"/>
 </head>
 <body>
-<p th:text="${'name: '+product.getName()}"></p>
-<p th:text="${'type: '+product.getType()}"></p>
-<p th:text="${'description: '+product.getDescription()}"></p>
-<p th:text="${'rating: '+product.getAverageRating()}"></p>
-<p>pictures:</p>
-<div th:each="imageName : ${product.getImagesNames()}">
-    <img th:src="${'/images/'+imageName}"  alt="no image"/>
+<div th:insert="~{navbar/navbar :: navbar}"></div>
+<div class="container">
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
+                        <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
+                        <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
+                        <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
+                        <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
+                        <div th:each="imageName,iter : ${product.getImagesNames()}">
+                            <div th:class="${iter.index == 0?'tab-pane active':'tab-pane'}" ><img th:src="${'/images/'+imageName}"  alt="no image"/></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details col-md-6">
+                    <h3 class="product-title" th:text="${'name: '+product.getName()}"></h3>
+                    <div class="rating">
+                        <span class="review-no" th:text="${'rating: '+product.getAverageRating()}"></span>
+                    </div>
+                    <p class="product-description" th:text="${'type: '+product.getType()}"></p>
+                    <p class="product-description" th:text="${'description: '+product.getDescription()}"></p>
+                    <div class="action">
+                        <form method="POST" th:action="@{/product/{showId}/set_rating(showId=${product.getId()})}" th:object="${rating}">
+                            <div class="form-group">
+                                <label for="rating">Rating</label>
+                                <input class="form-control" id="rating" min="0" max="10" type="number" th:field="*{rating}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Rate</button>
+                        </form>
+                        <div th:insert="~{review/create :: create}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<form method="POST" th:action="@{/product/{showId}/set_rating(showId=${product.getId()})}" th:object="${rating}">
-    <label for="rating">my rating:</label>
-    <input id="rating" min="0" max="10" type="number" th:field="*{rating}">
-    <input type="submit" value="submit">
-</form>
-<p>------------------------------------</p>
 <p>Reviews: </p>
 <div th:each="review : ${reviews}">
     <div th:insert="~{review/reviewInfo :: info}"></div>
 </div>
-<form method="POST" th:action="@{/review/create/{showId}(showId=${product.getId()})}" th:object="${review}">
-    <div th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
-    <label for="text">text: </label>
-    <input id="text" type="text" th:field="*{text}">
-    <label for="isRecommended">is recommended: </label>
-    <input id="isRecommended" type="checkbox" th:field="*{isShowRecommended}">
-    <input type="submit"  value="create">
-</form>
 </body>
 </html>

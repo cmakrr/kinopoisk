@@ -12,4 +12,7 @@ public class UserDTO{
     @NotBlank
     private String username;
     private String avatarName;
+    private int likesCount;
+    private int reviewsCount;
+    private String role;
 }

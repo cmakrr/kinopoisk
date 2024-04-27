@@ -61,4 +61,14 @@ public class CustomShowService implements ShowService {
     public Optional<Product> findByName(String name){
         return showRepository.findByName(name);
     }
+
+    @Override
+    public List<Product> findAll() {
+        return showRepository.findAll();
+    }
+
+    @Override
+    public List<Product> findByNameContaining(String name) {
+        return showRepository.findByNameContaining(name);
+    }
 }
