@@ -7,16 +7,23 @@
 </head>
 <body>
 <div th:insert="~{navbar/navbar :: navbar}"></div>
-<form method="POST" th:fragment="create" th:action="@{/review/create/{showId}(showId=${showId})}" th:object="${review}">
+<div  class="container">
+    <div class="wrapper row justify-content-center align-items-center">
+        <div class="col-md-6">
+<form method="POST"  th:fragment="create" th:action="@{/review/create/{showId}(showId=${product.getId()})}" th:object="${review}">
     <div class="form-group">
         <label for="text">Text</label>
         <input  class="form-control" id="text" th:field="*{text}" placeholder="Enter text">
     </div>
     <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="isRecommended" th:field="*{isShowRecommended}">
-        <label class="form-check-label" for="isRecommended">Check me out</label>
+        <label class="form-check-label" for="isRecommended">Is recommended</label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
+</div>
+</div>
+
 </body>
 </html>

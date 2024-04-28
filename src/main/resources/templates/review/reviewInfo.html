@@ -5,24 +5,33 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="info">
-    <div class="card" style="width: 18rem;">
+<div class="container " th:fragment="info">
+        <div class="wrapper row justify-content-center align-items-center">
+    <div class="card" style="width: 20rem;">
+        <img class="card-img-top rounded-circle"
+        width="150px" th:src="${'/images/'+review.getUser().getAvatarName()}"  alt="no image">
         <div class="card-body">
-            <h5 class="card-title"><a th:href="@{/profile/{id}(id=${review.getUser().getId()})}" th:text="${'username: '+review.getUser().getUsername()}"></a></h5>
-            <h6 class="card-subtitle mb-2 text-muted">    <a th:href="@{/product/{id}(id=${review.getShow().getId()})}" th:text ="${'product name: '+review.getShow().getName()}"></a></h6>
-            <h7 class="card-subtitle mb-2 text-muted" th:text="${review.isRecommended()?'recommended':'not recommended'}"></h7>
-            <p class="card-text" th:text="${'review: '+review.getText()}"></p>
-            <p class="card-text" th:text="${'likes: '+review.getLikesCount()}"></p>
-            <a href="#" class="card-link">    <form th:unless="${review.isLikedByCurrentUser()}" method="post" th:action="@{/like/{entityId}(entityId=${review.getId()})}">
-                <input type="submit" value="like">
+            <h4 class="card-title"><a  th:href="@{/profile/{id}(id=${review.getUser().getId()})}"
+                                      th:text="${'user: '+review.getUser().getUsername()}"></a></h4>
+            <h4 class="card-subtitle mb-2 text-muted"><a th:href="@{/show/{id}(id=${review.getProduct().getId()})}"
+                                                         th:text="${'product: '+review.getProduct().getName()}"></a>
+            </h4>
+            <h6 class="card-subtitle mb-2 text-muted"
+                th:text="${review.isRecommended()?'recommended':'not recommended'}"></h6>
+            <h6 class="card-text" th:text="${'review: '+review.getText()}"></h6>
+            <h6 class="card-text" th:text="${'likes: '+review.getLikesCount()}"></h6>
+            <form th:unless="${review.isLikedByCurrentUser()}" method="post"
+                  th:action="@{/like/{entityId}(entityId=${review.getId()})}">
+                <input type="submit" class="btn btn-primary" value="like">
             </form>
-                <form th:if="${review.isLikedByCurrentUser()}" method="post" th:action="@{/like/delete/{entityId}(entityId=${review.getId()})}">
-                    <input type="submit" value="delete like">
-                </form></a>
+            <form th:if="${review.isLikedByCurrentUser()}" method="post"
+                  th:action="@{/like/delete/{entityId}(entityId=${review.getId()})}">
+                <input type="submit" class="btn btn-primary" value="delete like"></form>
             <a th:if="${isOwner}" class="card-link" th:href="@{/review/edit/{id}(id=${review.getId()})}">edit</a>
             <a th:if="${isOwner}" class="card-link" th:href="@{/review/delete/{id}(id=${review.getId()})}">delete</a>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

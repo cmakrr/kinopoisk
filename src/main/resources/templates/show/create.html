@@ -8,6 +8,9 @@
 </head>
 <body>
 <div th:insert="~{navbar/navbar :: navbar}"></div>
+<div  class="container">
+    <div class="wrapper row justify-content-center align-items-center">
+        <div class="col-md-6">
 <form method="POST" th:action="@{/show/create}" th:object="${product}" enctype="multipart/form-data">
     <div class="form-group">
         <label for="name">Name</label>
@@ -25,10 +28,13 @@
         <input  class="form-control" id="description" th:field="*{description}" placeholder="Enter description">
     </div>
     <div class="form-group">
-        <label for="pictures">Example file input</label>
+        <label for="pictures">Pictures</label>
         <input type="file"  class="form-control-file" id="pictures" name="pictures" accept="image/png, image/jpeg" multiple>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
